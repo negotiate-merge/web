@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Customer Portal
+{% endblock %}
+
+{% block main %}
+
+{% if session['client_id'] == -1 %}
+    <a href="/rotadyne/admin">Return to Administrators home-page</a>
+{% endif %}
+
+<table class="table table-striped">
+    <caption style="caption-side: top">Order History for {{ records[0]['trading_name'] }}</caption>
+    <thead>
+        <tr class="table-left">
+            <th scope="col">Order #</th>
+            <th scope="col">Date</th>
+            <th  scope="col"><div class="cell-amount">Order Total</div></th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in records %}
+            <tr class="table-left">
+                <td><a href="/rotadyne/order_details/{{ row['doc_id'] }}">{{ row['doc_id'] }}</a></td>
+                <td>{{ row['doc_date'] }}</td>
+                <td><div class="cell-amount">{{ row['doc_amount'] }}</div></td>
+                <td>{{ row['order_status'] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    <!-- Table footer from finance app
+    <tfoot class="table-dark">
+        <tr>
+            <td colspan="2"></td>
+            <th>Current Cash</th>
+            <td>{{ balance }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+            <th>Grand Total</th>
+            <td>{{ net }}</td>
+        </tr>
+    </tfoot>
+    -->
+</table>   
+
+    
+    <!-- Original landing page table from finance app 
+    <h1>Portfolio of stocks</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Stock Symbol</th>
+                <th scope="col">Stocks</th>
+                <th scope="col">Current price</th>
+                <th scope="col">Total Value</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    <td>{{ row['symbol'] }}</td>
+                    <td>{{ row['stocks'] }}</td>
+                    <td>{{ row['currentPrice'] }}</td>
+                    <td>{{ row['currentValue'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+        <tfoot class="table-dark">
+            <tr>
+                <td colspan="2"></td>
+                <th>Current Cash</th>
+                <td>{{ balance }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <th>Grand Total</th>
+                <td>{{ net }}</td>
+            </tr>
+        </tfoot>
+    </table>
+    -->
+
+    <!-- Add cash to user Form and js from finance app
+    <form action="/" method="post" class="row g-3 justify-content-end">
+        <div class="col-auto">
+            <input id="amount" class="form-control" name="amount" type="number" autocomplete="off" placeholder="Amount">
+        </div>
+        <div class="col-auto">
+            <button id="submit" class="btn btn-primary mb-3" type="submit" disabled>Add Ca$h!</button>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById("amount").onkeyup = function() {
+            if (document.getElementById("amount").value === '') {
+                document.getElemntById("submit").disabled = true;
+            } else {
+                document.getElementById("submit").disabled = false;
+            }
+        }
+    </script>
+    -->
+{% endblock %}

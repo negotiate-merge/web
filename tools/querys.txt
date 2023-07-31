@@ -1,0 +1,48 @@
+HEADER SQL
+
+SELECT Doc_ID, Doc_Date, Doc_Amount, Order_Status, Charge_Street, Charge_Street2, Charge_Suburb, Charge_State, Charge_Postcode, Charge_Country, Ship_Attention, Ship_Trading_Name, Ship_Street, Ship_Street2, Ship_Suburb,
+Ship_State, Ship_Postcode, Ship_Country, Ship_Phone, Sales_Rep, Client_Reference
+FROM client_docs_header
+WHERE (Tran_Type = 'SORD') AND (Client_ID = 1234)
+ORDER BY Doc_ID DESC
+
+        # Original used in app.py @ index route
+        sales_query = ("SELECT Doc_ID, Doc_Date, Doc_Amount, Order_Status, Charge_Street, "
+                "Charge_Street2, Charge_Suburb, Charge_State, Charge_Postcode, "
+                "Charge_Country, Ship_Attention, Ship_Trading_Name, Ship_Street, "
+                "Ship_Street2, Ship_Suburb, Ship_State, Ship_Postcode, Ship_Country, "
+                "Ship_Phone, Sales_Rep, Client_Reference "
+                "FROM client_docs_header WHERE (Tran_Type = 'SORD') "
+                "AND (Client_ID = %s) ORDER BY Doc_ID DESC")
+
+
+Nb: OrderStatus is integer
+
+Public Class OrderStatus
+        Public Const Open As Integer = 0
+        Public Const Part As Integer = 1
+        Public Const Full As Integer = 2
+        Public Const Closed As Integer = 3
+        Public Const Suspended As Integer = 4
+        Public Const Cancelled As Integer = 5
+End Class
+
+
+DETAIL SQL
+
+SELECT  TOP (100) PERCENT client_docs_items.OrdInv_Item,
+stock_item_master.StockID, stock_item_master.Item_Desc, client_docs_items.Item_Qty, client_docs_items.Item_Price,
+client_docs_items.Items_Shipped, client_docs_items.CDH_ID , client_docs_items.Item_Status
+FROM client_docs_items INNER JOIN
+stock_item_master ON client_docs_items.Int_Stock_ID = stock_item_master.Int_Stock_ID
+WHERE (client_docs_items.CDH_ID = 4567)
+ORDER BY client_docs_items.OrdInv_Item
+
+
+
+
+SELECT client_docs_items.OrdInv_Item, stock_item_master.StockID, stock_item_master.Item_Desc, client_docs_items.Item_Qty, client_docs_items.Item_Price,
+client_docs_items.Items_Shipped, client_docs_items.CDH_ID , client_docs_items.Item_Status
+FROM client_docs_items INNER JOIN
+stock_item_master ON client_docs_items.Int_Stock_ID = stock_item_master.Int_Stock_ID WHERE (client_docs_items.CDH_ID = 53127)
+ORDER BY client_docs_items.OrdInv_Item

@@ -1,0 +1,401 @@
+{% extends "so-random/layout.html" %}
+
+{% block title %}
+    Parameter Selection
+{% endblock %}
+
+{% block main %}
+    <h1>Australian Powerball Random Number Generator</h1>
+    <p><strong>This application currently works best in a desktop environment using the chrome web browser. It utilizes developer 
+        tools to automate form filling which is too much to ask of an average individual to enable such functionality on a mobile 
+        device.</strong></p>
+    <p><strong>Mobile users can still use the application to see how it works, but may not be able to easily use the numbers 
+        that are generated.</strong></p>
+    <p style="padding: 10px 0px;"><strong>
+        Balls referred to as being hot are the ball numbers that have been drawn most frequently over the past year. 
+        <br><span style="color: red;">Hot ball numbers appear in red</span> and 
+        <span style="color: blue;">cold ball numbers appear in blue.</span></strong></p>
+        <p><strong>The ball isolated to the far right represents the powerball.</strong></p>
+
+    <div>
+        <p class="center"><span style="padding: 0 30px;"><strong>Last drawn on: </strong> <em>{{ latest }}</em></span>
+            <span id="lastDraw" style="margin: 0 auto;">
+                <span class="ball">{{ ldn[0] }}</span>
+                <span class="ball">{{ ldn[1] }}</span>
+                <span class="ball">{{ ldn[2] }}</span>
+                <span class="ball">{{ ldn[3] }}</span>
+                <span class="ball">{{ ldn[4] }}</span>
+                <span class="ball">{{ ldn[5] }}</span>
+                <span class="ball">{{ ldn[6] }}</span>
+                <span class="powerball bounce">{{ ldp }}</span>
+            </span>
+        </p>
+    </div><br><br>
+
+    <div style="text-align: left;">
+        <p><strong>Standard Balls</strong></p>
+        <span id="hot" style="margin: 0 auto;">
+            {% for num in hotNumbers %}
+            <span class="hot">{{ num }}</span>
+            {% endfor %}
+        </span><br>
+        <span id="cold" style="margin: 0 auto;">
+            {% for num in coldNumbers %}
+                <span class="cold">{{ num }}</span>
+            {% endfor %}
+        </span>
+    </div><br>
+
+    <div style="text-align: left;">
+        <p><strong>Power Balls</strong></p>
+        <span id="hotP" style="margin: 0 auto;">
+            {% for num in hotPowers %}
+                <span class="hot">{{ num }}</span>
+            {% endfor %}
+        </span><br>        
+        <span id="coldP" style="margin: 0 auto;">
+            {% for num in coldPowers %}
+                <span class="cold">{{ num }}</span>
+            {% endfor %}
+        </span>
+    </div><br>
+
+    <form action="/so-random/generate" method="post">
+        <table id="lineTable" class="table table-dark">
+            <thead>
+                <tr>
+                    <th colspan="4" style="background-color: black; color: white;">Draw Configuration Area</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td><strong>Random selection</strong></td>
+                    <td>
+                        <label><strong>Lines:</strong>
+                            <select name="random">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                                <option value="60">60</option>
+                                <option value="61">61</option>
+                                <option value="62">62</option>
+                                <option value="63">63</option>
+                                <option value="64">64</option>
+                                <option value="65">65</option>
+                                <option value="66">66</option>
+                                <option value="67">67</option>
+                                <option value="68">68</option>
+                                <option value="69">69</option>
+                                <option value="70">70</option>
+                                <option value="71">71</option>
+                                <option value="72">72</option>
+                                <option value="73">73</option>
+                                <option value="74">74</option>
+                                <option value="75">75</option>
+                                <option value="76">76</option>
+                                <option value="77">77</option>
+                                <option value="78">78</option>
+                                <option value="79">79</option>
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                                <option value="92">92</option>
+                                <option value="93">93</option>
+                                <option value="94">94</option>
+                                <option value="95">95</option>
+                                <option value="96">96</option>
+                                <option value="97">97</option>
+                                <option value="98">98</option>
+                                <option value="99">99</option>
+                                <option value="100">100</option>
+                            </select>
+                        </label>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <label<strong>Game ball ratio:</strong>
+                            <select name="hot1">
+                                <option value="0">All Cold</option>
+                                <option value="1">1 Hot / 6 Cold</option>
+                                <option value="2">2 Hot / 5 Cold</option>
+                                <option value="3">3 Hot / 4 Cold</option>
+                                <option value="4">4 Hot / 3 Cold</option>
+                                <option value="5">5 Hot / 2 Cold</option>
+                                <option value="6">6 Hot / 1 Cold</option>
+                                <option value="7">All Hot</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td>
+                        <label><strong>Powerball:</strong>
+                            <select name="power1" id="power">
+                                <option value="hot">Hot</option>
+                                <option value="cold">Cold</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td>
+                        <label><strong>Lines:</strong>
+                            <select name="count1">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                                <option value="51">51</option>
+                                <option value="52">52</option>
+                                <option value="53">53</option>
+                                <option value="54">54</option>
+                                <option value="55">55</option>
+                                <option value="56">56</option>
+                                <option value="57">57</option>
+                                <option value="58">58</option>
+                                <option value="59">59</option>
+                                <option value="60">60</option>
+                                <option value="61">61</option>
+                                <option value="62">62</option>
+                                <option value="63">63</option>
+                                <option value="64">64</option>
+                                <option value="65">65</option>
+                                <option value="66">66</option>
+                                <option value="67">67</option>
+                                <option value="68">68</option>
+                                <option value="69">69</option>
+                                <option value="70">70</option>
+                                <option value="71">71</option>
+                                <option value="72">72</option>
+                                <option value="73">73</option>
+                                <option value="74">74</option>
+                                <option value="75">75</option>
+                                <option value="76">76</option>
+                                <option value="77">77</option>
+                                <option value="78">78</option>
+                                <option value="79">79</option>
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                                <option value="92">92</option>
+                                <option value="93">93</option>
+                                <option value="94">94</option>
+                                <option value="95">95</option>
+                                <option value="96">96</option>
+                                <option value="97">97</option>
+                                <option value="98">98</option>
+                                <option value="99">99</option>
+                                <option value="100">100</option>
+                            </select>
+                        </label>
+                    </td>
+                    <td><button onclick="addRow()" class="btn btn-primary rs" type="button">Add Row</button></td>
+                </tr>
+
+            </tbody>
+        </table>
+        
+        <button class="btn btn-primary rs" type="submit">Get Numbers!</button>
+    </form>
+
+    <!--  Begin experimentation of hidden fields  -->
+
+    <div style="text-align: left;">
+        <span id="previousHot" style="margin: 0 auto;">
+            {% for num in previousHotNums %}
+            <span class="hot" style="display: none">{{ num }}</span>
+            {% endfor %}
+        </span><br>
+        <span id="previousCold" style="margin: 0 auto;">
+            {% for num in previousColdNums %}
+                <span class="cold" style="display: none;">{{ num }}</span>
+            {% endfor %}
+        </span>
+    </div>
+
+    <div style="text-align: left;">
+        <span id="previousHotP" style="margin: 0 auto;">
+            {% for num in previousHotPows %}
+                <span class="hot" style="display: none;">{{ num }}</span>
+            {% endfor %}
+        </span><br>        
+        <span id="previousColdP" style="margin: 0 auto;">
+            {% for num in previousColdPows %}
+                <span class="cold" style="display: none;">{{ num }}</span>
+            {% endfor %}
+        </span>
+    </div>
+
+    <!--  End expererimentation of hidden fields  -->
+
+<script>
+// Get previous draws number heat from hidden fields
+const previousColdNums = document.getElementById('previousCold');
+const previousHotNums = document.getElementById('previousHot');
+const previousColdPows = document.getElementById('previousColdP')
+const previousHotPows = document.getElementById('previousHotP')
+
+// Get current number heat from catagorised numbers by id
+const coldNumbers = document.getElementById('cold');
+const hotNumbers = document.getElementById('hot');
+const coldPowers = document.getElementById('coldP');
+const hotPowers = document.getElementById('hotP');
+
+// Process numbers for use in script
+returnNumbers(coldNumbers);
+returnNumbers(hotNumbers);
+returnNumbers(coldPowers);
+returnNumbers(hotPowers);
+returnNumbers(previousColdNums);
+returnNumbers(previousHotNums);
+returnNumbers(previousColdPows);
+returnNumbers(previousHotPows);
+
+// Populates sessionStorage for use across pages
+populateStorage();
+
+/* Apply styling to individual balls based on their hotness */
+
+// Get span elements from lastDraw
+const lastNumberElements = document.getElementById('lastDraw').getElementsByTagName('span');
+const lastNumbers = [];
+
+// Aggregate lastNumbers converting to type number from type string
+for (let i = 0; i < lastNumberElements.length; i++) {
+    lastNumbers.push(parseInt(lastNumberElements[i].innerHTML, 10));
+}
+
+// Apply styling
+for (let i = 0; i < lastNumbers.length; i++) {
+    if (i < lastNumbers.length - 1) {
+        // Standard game balls
+        color(lastNumbers[i], 'previousBall') ? lastNumberElements[i].setAttribute('class', 'cold') : lastNumberElements[i].setAttribute('class', 'hot');
+    } else {
+        // Power ball
+        color(lastNumbers[i], 'previousPBall') ? lastNumberElements[i].setAttribute('class', 'cold bounce') : lastNumberElements[i].setAttribute('class', 'hot bounce');
+    }
+}
+</script>
+
+{% endblock %}

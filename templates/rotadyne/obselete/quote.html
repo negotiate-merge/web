@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <form action="/quote" method="post">
+        <div class="form-group">
+            <input id="quote" autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Enter Stock Symbol" type="text">
+        </div>
+        <button id="submit" class="btn btn-primary" type="submit" disabled>Get Quote</button>
+    </form>
+    <script>
+        // When a key is depressed within the form field with id='task'
+        document.querySelector('#quote').onkeyup = function() {
+            // If no input set disabled attribute to true else set to false.
+            if (document.querySelector('#quote').value == '') {
+                document.querySelector('#submit').disabled = true;
+            } else {
+                document.querySelector('#submit').disabled = false;
+            }
+        }
+    </script>
+{% endblock %}

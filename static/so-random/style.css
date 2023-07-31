@@ -1,0 +1,120 @@
+body {
+    font-weight: 500;
+}
+
+.flex-container {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.flex-child {
+    flex: 1;
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.flex-child:first-child {
+    margin-right: 20px;
+}
+
+
+.hot
+{
+border-spacing: 0;
+padding: 0;
+border: 0;
+position: relative;
+text-align: center;
+font: normal 32px/62px 'trebuchet ms', sans-serif;
+text-shadow: #444 0 1px 2px;
+border-radius: 60px;
+display: inline-block;
+zoom: 1;
+top: 0;
+background: #ff0000;
+box-shadow: inset #ff5400 0 0 18px 6px;
+color: #FFF;
+font-size: 22px;
+margin: 0;
+width: 36px;
+height: 36px;
+line-height: 36px;
+margin-bottom: 4px;
+}
+
+.cold
+{
+    border-spacing: 0;
+    padding: 0;
+    border: 0;
+    position: relative;
+    text-align: center;
+    font: normal 32px/62px 'trebuchet ms', sans-serif;
+    border-radius: 60px;
+    display: inline-block;
+    zoom: 1;
+    top: 0;
+    background-color: #039;
+    box-shadow: inset #026 0 0 20px -2px;
+    text-shadow: #333 0 2px 2px;
+    color: #FFF;
+    font-size: 22px;
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    margin-bottom: 4px;
+}
+
+.bounce 
+{
+    margin-left: 30px;
+}
+
+.center {
+    margin: auto;
+    width: 80%;
+}
+
+.script-area
+{
+    color: white;
+    text-align: left;
+    background-color: black;
+    padding: 6px 3px 1px 12px;
+}
+
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+p
+{
+    text-align: left;
+}

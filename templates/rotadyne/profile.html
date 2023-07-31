@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Profile
+{% endblock %}
+
+{% block main %}
+
+    <form action="/rotadyne/profile" method="post">
+            <fieldset>
+            <legend>Change your password</legend>
+            <div class="form-group">
+                <input class="form-control" id="password" name="password" placeholder="Password" type="password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="confirmation" placeholder="Confirm Password" type="password">
+            </div>
+            <button class="btn btn-primary" type="submit">Change Password</button>
+        </fieldset>
+    </form>
+
+{% endblock %}
+    
+<!-- Original history page from finance app
+<h1>Transaction History</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">Transacted</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in all %}
+                <tr>
+                    <td>{{ row['symbol'] }}</td>
+                    <td>{{ row['shares'] }}</td>
+                    <td>{{ row['price'] }}</td>
+                    <td>{{ row['date'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+-->

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Order Details
+{% endblock %}
+
+{% block main %}
+<h4 style="text-align: left">Order {{ order_id }}</h4>
+<table class="table table-striped">
+    <thead>
+        <tr class="table-left">
+            <th scope="col">Item</th>
+            <th scope="col">Stock ID</th>
+            <th  scope="col">Description</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Item Price</th>
+            <th scope="col">Items Shipped</th>
+            <th scope="col">Item Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for line in lines %}
+            <tr class="table-left">
+                <td>{{ line['item'] }}</td>
+                <td>{{ line['stock_id'] }}</td>
+                <td>{{ line['description'] }}</td>
+                <td>{{ line['qnt'] }}</td>
+                <td><div class="cell-amount">{{ line['item_price'] }}</div></td>
+                <td>{{ line['items_shpd'] }}</td>
+                <td>{{ line['item_status'] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

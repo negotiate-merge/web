@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Administrator Portal
+{% endblock %}
+
+{% block main %}
+
+<h4 class="left">Administrators area</h4>
+<form  class="left" action="/rotadyne/admin" method="post">
+    <label for="org-selector"><strong>Organization Selector:</strong></label>
+    <select name="organization" id="org-selector">
+        <option>-- Please choose an option --</option>
+        {% for org in orgs %}
+            <option value="{{org['clientId']}}">{{ org['name'] }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-primary rs" type="submit">View Organization History</button>
+</form>
+
+{% if session['client_id'] == -1 %}
+    
+{% endif %}
+
+
+<!--
+<h3 style="text-align: left">Order History</h3>
+<table class="table table-striped">
+    <thead>
+        <tr class="table-left">
+            <th scope="col">Order #</th>
+            <th scope="col">Date</th>
+            <th  scope="col"><div class="cell-amount">Order Total</div></th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in records %}
+            <tr class="table-left">
+                <td><a href="/order_details/{{ row['doc_id'] }}">{{ row['doc_id'] }}</a></td>
+                <td>{{ row['doc_date'] }}</td>
+                <td><div class="cell-amount">{{ row['doc_amount'] }}</div></td>
+                <td>{{ row['order_status'] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>   
+-->
+{% endblock %}

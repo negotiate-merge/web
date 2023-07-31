@@ -1,0 +1,23 @@
+{% extends "so-random/layout.html" %}
+
+{% block title %}
+    Usage
+{% endblock %}
+
+{% block main %}
+    <h3>Automated Form Filling - Instructions</h3>
+    <p><strong>A script has been copied to the clipboard that contains your generated numbers. To purchase a lotto ticket using these numbers
+        follow the steps below.</strong></p>
+    <p>Navigate to the <a href="https://www.ozlotteries.com/powerball" target="_blank">ozlotteries powerball</a> website and select your number of 
+        games from the dropdown. Make sure that the number of games you select is enough for the number of lines you generated on the previous page.</p>
+    <p>Select the 'Choose your numbers' checkbox.</p>
+    <p>Press the <kbd>F12</kbd> key on your keyboard.</p>
+    <p>At the cursor next to the blue arrow, right click and select paste.</p>
+    <p>Press the <kbd>Enter</kbd> key.</p>
+    <!--<img src="{{url_for('static', filename='consoleScript.JPG')}}">-->
+    <p>Now type <code style="background: black; color: white; padding: 3px 3px">autoFill();</code> and press the <kbd>Enter</kbd> key.</p>
+    <p>Once that has completed your numbers should automatically fill the form.</p>
+    <!--<img src="{{url_for('static', filename='filled.JPG')}}">-->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/0JVgA1kBipI?rel=0&modestbranding=1&autohide=1&showinfo=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+{% endblock %}

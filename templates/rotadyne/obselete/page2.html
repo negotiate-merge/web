@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Page 2
+{% endblock %}
+
+{% block main %}
+    <h1 style="text-align: left">Page 2 to be used if required</h1>
+{% endblock %}
+<!-- Original buy.html content from finance app
+    <form id="buy" action="/buy" method="post">
+        <div class="form-group">
+            <input id="symbol" autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Stock Symbol" type="text">
+        </div>
+        <div class="form-group">
+            <input id="shares" autocomplete="off" class="form-control" name="shares" placeholder="Amount of shares" type="number">
+        </div>
+        <button id="submit" class="btn btn-primary" type="submit" disabled>Purchase</button>
+    </form>
+    <script>
+        // When a key is depressed within the form field with id='buy'
+        document.querySelector('#buy').onkeyup = function() {
+            // If no input set disabled attribute to true else set to false.
+            if (document.querySelector('#symbol').value === '') {
+                document.querySelector('#submit').disabled = true;
+            } else {
+                document.querySelector('#submit').disabled = false;
+            }
+        }
+    </script>
+-->

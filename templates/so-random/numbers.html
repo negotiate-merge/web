@@ -1,0 +1,127 @@
+{% extends "so-random/layout.html" %}
+
+{% block title %}
+    Your Numbers
+{% endblock %}
+
+{% block main %}
+    <h3>{{ message }}</h3><br>
+    
+    <div class="d-flex">
+        <ol class="mx-auto justify-content-center">
+            {% for line in lines %}
+                <li>
+                    <p>
+                        <span class="hot">{{ line[0] }}</span>
+                        <span class="hot">{{ line[1] }}</span>
+                        <span class="hot">{{ line[2] }}</span>
+                        <span class="hot">{{ line[3] }}</span>
+                        <span class="hot">{{ line[4] }}</span>
+                        <span class="hot">{{ line[5] }}</span>
+                        <span class="hot">{{ line[6] }}</span>
+                        <span class="cold bounce">{{ line[7] }}</span>
+                    </p>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+    
+
+    <p style="text-align: center; padding: 10px"><a href="usage"><button id="copy" class="btn btn-primary rs" type="button">Use these numbers</button></a></p>
+
+    <p>Below is the code required for automated form filling on the <a href="https://www.ozlotteries.com/powerball">Oz Lotteries</a> 
+        website. Click the 'Use these numbers' button to learn how to use it. The code will be automatically copied to the clipboard.</p>
+    
+<article class="script-area" id="autoFill">
+    <pre style="color: white;">
+const autoFill = async function () {
+    // Provides a pause between each line fill - required for page to update the DOM
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const numbers = </pre>
+    <div id="lines">
+        {{ lines }};
+    </div>
+<pre style="color: white;">
+
+    for (let h = 0; h < numbers.length; h++) {
+        line = numbers[h];
+        
+        // Gain access to number selection fields
+        const balls = document.querySelectorAll('[data-id="numberGrids_numbers_hiddenCheckbox"]');
+        const pballs = document.querySelectorAll('[data-id="numberGrids_powerball_hiddenCheckbox"]');
+        
+        for (let i = 0; i < line.length; i++) {
+            if (i < line.length - 1) {
+                for (let j = 0; j < balls.length; j++) {
+                    if (parseInt(balls[j].id, 10) === line[i]) {
+                        balls[j].click();
+                        break;
+                    }
+                }
+            } else {
+                for (let j = 0; j < pballs.length; j++) {
+                    if (parseInt(pballs[j].id, 10) === line[i]) {
+                        pballs[j].click();
+                        await sleep(700);
+                        break;
+                    }
+                }
+            }  
+        }
+    }
+}</pre>
+</article>
+
+<p style="text-align: center;"><a href="/">{{ link }}</a></p>
+    <script>
+        //Script to copy
+        const insertNumbers = document.querySelector('#lines').innerHTML;
+        const fill = `const autoFill = async function () {function sleep (ms) {return new Promise(resolve => setTimeout(resolve, ms));} const numbers = ${insertNumbers}; for (let h = 0; h < numbers.length; h++) {line = numbers[h];const balls = document.querySelectorAll('[data-id="numberGrids_numbers_hiddenCheckbox"]');const pballs = document.querySelectorAll('[data-id="numberGrids_powerball_hiddenCheckbox"]'); for (let i = 0; i < line.length; i++) {if (i < line.length - 1) {for (let j = 0; j < balls.length; j++) {if (parseInt(balls[j].id, 10) === line[i]) {balls[j].click();break;}}} else {for (let j = 0; j < pballs.length; j++){if (parseInt(pballs[j].id, 10) === line[i]){pballs[j].click(); await sleep(700);break;}}}}}}`
+        
+
+        // Button event listener for copyying to clipboard
+        document.querySelector('#copy').addEventListener("click", copyScript);
+        
+        // Populate ball heat objects from sessionStorage
+        balls.cold = JSON.parse(sessionStorage.getItem('coldBalls'));
+        balls.hot = JSON.parse(sessionStorage.getItem('hotBalls'));
+        pBalls.cold = JSON.parse(sessionStorage.getItem('coldPBalls'));
+        pBalls.hot = JSON.parse(sessionStorage.getItem('hotPBalls'));
+        
+        // Get all list elements
+        let lines = document.querySelectorAll('li');
+
+        // Get number of lines to run through.. 1st li element is in the navbar hence -1
+        const noOfLines = lines.length - 1;
+
+        // Adjust styling for every line
+        // Aggregate lastNumbers with the number type of each span
+
+
+        for (let i = 1; i <= noOfLines; i++) {
+            // Access each lines numbers and store in an array
+            let lineElements = lines[i].getElementsByTagName('span');
+            let lineNumbers = [];
+            
+            // Push to array as number for accurate comparison
+            for (let j = 0; j < lineElements.length; j++) {
+                lineNumbers.push(parseInt(lineElements[j].innerHTML, 10));
+            }
+
+            // Apply styling
+            for (let j = 0; j < lineNumbers.length; j++) {
+                if (j < lineNumbers.length - 1) {
+                    color(lineNumbers[j], 'ball') ? lineElements[j].setAttribute('class', 'cold') : lineElements[j].setAttribute('class', 'hot');
+                } else {
+                    color(lineNumbers[j], 'pBall') ? lineElements[j].setAttribute('class', 'cold bounce') : lineElements[j].setAttribute('class', 'hot bounce');
+                }
+            }
+        }
+
+
+
+    </script>
+{% endblock %}
