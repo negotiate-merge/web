@@ -94,7 +94,7 @@ def index_sr():
         hotNumbers=aggregated['hotNumbers'], coldPowers=aggregated['coldPowers'], 
         hotPowers=aggregated['hotPowers'], ldn=lastDraw['lastNums'], ldp=lastDraw['lastPower'])
 
-@app.route("/so-random//generate", methods=["GET", "POST"])
+@app.route("/so-random/generate", methods=["GET", "POST"])
 def generate():
     if request.method == "POST":
         # Store Drawn numbers

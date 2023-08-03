@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import date
 from datetime import timedelta
 from helpers import db_connect
+from flask import session
 
 
 def get_date(lastDrawn):
@@ -25,18 +26,15 @@ def aggregate(db, weeks):
     powerMedian = 3 #3
     
     # Initialize arrays for hot and cold ball trackers
-    global coldNumbers
-    global hotNumbers
-    global coldPowers
-    global hotPowers
     coldNumbers = []
     hotNumbers = []
     coldPowers = []
     hotPowers = []
 
+
     # Count number of times each ball is drawn
-    global numbers
-    global powers
+    # global numbers
+    # global powers
     numbers = {}
     powers = {}
     # Sets counters to 0
@@ -57,19 +55,18 @@ def aggregate(db, weeks):
     w = weeks
     # Count ball draw occurances
     while w:
-        if w == weeks:
+        if w == 53:
             print(f"w is {w} skipping first")
             row = db.fetchone()
-            print(row)
-            print(type(row))
+            # print(row)
             w -= 1
             pass
-        print(f"w is {w}")
+        # print(f"w is {w}")
         row = db.fetchone()
 
         nums = row[0].split(',')
         power = row[1]
-        print(f"nums is {nums} power is {power}")
+        # print(f"nums is {nums} power is {power}")
         w -= 1
         for n in nums:
             if n in numbers:
@@ -109,6 +106,12 @@ def aggregate(db, weeks):
         coldPowers = []
         hotPowers = []
 
+    # Need to store these in session for access accross gunicorn PID's
+    session['coldNumbers'] = coldNumbers
+    session['hotNumbers'] = hotNumbers
+    session['coldPowers'] = coldPowers
+    session['hotPowers'] = hotPowers
+
     # curA.close()
     # cnx.close()
 
@@ -127,7 +130,7 @@ def dbUpdate(URL, db):
     curA.execute(lastDrawn_query)
     lastDrawn = curA.fetchone()
     #lastDrawn = curA[0]#['drawDate']
-    print(f"lastDrawn is {type(lastDrawn[0])}")
+    # print(f"lastDrawn is {type(lastDrawn[0])}")
 
     
     if get_date(lastDrawn):
@@ -186,9 +189,9 @@ def dbUpdate(URL, db):
 def drawBall(code):
     while True:
         n = random.randint(1,35)
-        if code == 'h' and n in hotNumbers:
+        if code == 'h' and n in session['hotNumbers']:
             break
-        elif code == 'c' and n in coldNumbers:
+        elif code == 'c' and n in session['coldNumbers']:
             break
         elif code == 'r':
             break
@@ -199,9 +202,9 @@ def drawBall(code):
 def drawPower(code):
     while True:
         n = random.randint(1,20)
-        if code == 'h' and n in hotPowers:
+        if code == 'h' and n in session['hotPowers']:
             break
-        elif code == 'c' and n in coldPowers:
+        elif code == 'c' and n in session['coldPowers']:
             break
         elif code == 'r':
             break
@@ -211,7 +214,7 @@ def drawPower(code):
 
 def changeState():
     # This function changes the array values from str to their int counterpart
-    arrays = [hotNumbers, coldNumbers, hotPowers, coldPowers]
+    arrays = [session['hotNumbers'], session['coldNumbers'], session['hotPowers'], session['coldPowers']]
     for array in arrays:
         count = 0
         while count != len(array):
