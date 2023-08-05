@@ -56,7 +56,7 @@ def index_sr():
         curA = cnx.cursor(buffered=True)
 
         # Ensure database has the latest draw results
-        dbUpdate(URL, curA)
+        dbUpdate(URL)
 
         # Aggregate ball counts for last week - must be run before the counter of next week because 
         # the function will clear its global arrays if 53 is passed in as 2nd arg
@@ -67,10 +67,10 @@ def index_sr():
         
 
         # Print heat for this week and last week
-        print("\nThis weeks heat check\n")
-        print(aggregated)
-        print("\nLast weeks heat check\n")
-        print(lastAggregated)
+        #print("\nThis weeks heat check\n")
+        #print(aggregated)
+        #print("\nLast weeks heat check\n")
+        #print(lastAggregated)
         
 
         # Get results from last draw
@@ -80,7 +80,7 @@ def index_sr():
         curA.execute("SELECT MAX(drawDate) AS drawDate FROM results") #[0]['drawDate']
         lastRecord = curA.fetchone()
         lastRecord = str(lastRecord[0])
-        print(lastRecord)
+        #print(lastRecord)
 
         # Reformat date 
         latestDate = f"{lastRecord[8:]}-{lastRecord[5:7]}-{lastRecord[0:4]}"

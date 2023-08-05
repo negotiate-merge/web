@@ -11,13 +11,14 @@ def get_date(lastDrawn):
     """Detirmines if the current date is after the date of the last known draw"""
     #last = date.fromisoformat(str(lastDrawn))    # Create date object from string
     last = lastDrawn[0]
-    next = last + timedelta(days=7)         # Calculate date of next draw
+    nextDraw = last + timedelta(days=7)         # Calculate date of next draw
     today = date.today()                    # Get todays date
-    
-    if today > next:
+    # print(f"last:    {last}    {type(last)}\ntoday:    {today}    {type(today)}\nnext:    {nextDraw}    {type(nextDraw)}")
+    if today >= nextDraw:
         return True
     else:
         return False
+        
 
 
 def aggregate(db, weeks):
@@ -56,7 +57,7 @@ def aggregate(db, weeks):
     # Count ball draw occurances
     while w:
         if w == 53:
-            print(f"w is {w} skipping first")
+            #print(f"w is {w} skipping first")
             row = db.fetchone()
             # print(row)
             w -= 1
@@ -118,7 +119,7 @@ def aggregate(db, weeks):
     return aggregates
 
 
-def dbUpdate(URL, db):
+def dbUpdate(URL):
     """Scrape results and update db"""
     # Check if latest results have already been inserted
     # lastDrawn = db.execute("SELECT MAX(drawDate) AS drawDate FROM results")[0]['drawDate']
@@ -129,13 +130,9 @@ def dbUpdate(URL, db):
     curA = cnx.cursor(buffered=True)
     curA.execute(lastDrawn_query)
     lastDrawn = curA.fetchone()
-    #lastDrawn = curA[0]#['drawDate']
-    # print(f"lastDrawn is {type(lastDrawn[0])}")
-
     
     if get_date(lastDrawn):
-        print("Updating database")
-
+        print("Udpating database")
         # Get html content, setup BeautifulSoup object
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
@@ -147,42 +144,58 @@ def dbUpdate(URL, db):
         # Find element by html id tag, get all tr elements & delete table header
         results = soup.find(id="content")
         draws = results.find_all('tr')
+        print(f"draws is of type {type(draws)}")
         # Remove header
         del(draws[0])
 
+        # Insert into db if not present
+        date_query = ("SELECT drawDate FROM results")
+        curA.execute(date_query)
+
+        listedDates = []
+        for _ in curA:
+            date = curA.fetchone()
+            if date is not None:
+                # print(date[0])
+                listedDates.append(str(date[0]))
+        
         # Parse data from html tags
-        for draw in draws:
-            # Refactor date for SQL insertion
-            rawDate = draw.find('a', href=True)['href']
-            date = rawDate[19:]
-            d = date[0:2]
-            m = date[3:5]
-            y = date[6:]
-            cleanDate = f"{y}-{m}-{d}"
-            print(cleanDate)
+        # Refactor date for SQL insertion
+        rawDate = draws[0].find('a', href=True)['href']
+        date = rawDate[19:]
+        d = date[0:2]
+        m = date[3:5]
+        y = date[6:]
+        cleanDate = f"{y}-{m}-{d}"
+        # print(cleanDate)
 
-            # Extract drawn numbers from soup
-            rawNumbers = draw.find_all("li", class_="result medium pb ball dark ball")
-            powerball = draw.find("li", class_="result medium pb ball dark powerball").text
-            numbers = []
-            
-            for number in rawNumbers:
-                numbers.append(number.text)
-            
-            numString = ','.join(numbers)
-            
-            # Insert into db if not present
-            dbDates = db.execute("SELECT drawDate FROM results")
-            listedDates = []
+        # Extract drawn numbers from soup
+        rawNumbers = draws[0].find_all("li", class_="result medium pb ball dark ball")
+        powerball = draws[0].find("li", class_="result medium pb ball dark powerball").text
+        numbers = []
+        
+        for number in rawNumbers:
+            numbers.append(number.text)
+        
+        numString = ','.join(numbers)
 
-            for date in dbDates:
-                listedDates.append(date['drawDate'])
+        print(f"numString:  {numString}\npowerball:  {powerball}\ncleanDate:  {cleanDate}")
 
-            if cleanDate not in listedDates:
-                db.execute("INSERT INTO results (numbers, powerball, drawDate) VALUES (:n, :p, :date)", 
-                n=numString, p=powerball, date=cleanDate)
+        print(f"cleandate has type {type(cleanDate)}")
+        print(f"listedDates[0] has type {type(listedDates[0])}")
+
+        if cleanDate not in listedDates:
+            #print("need to insert here")
+            curB = cnx.cursor(buffered=True)
+            insertDraw_query = ("INSERT INTO results (numbers, powerball, drawDate) VALUES (%s, %s, %s)")
+            curB.execute(insertDraw_query, (numString, powerball, cleanDate,))
+            cnx.commit()
+            curB.close()        
     else:
         print("Database up to date")
+    
+    curA.close()
+    cnx.close()
 
 
 # Draw normal balls based on hotness
@@ -228,7 +241,7 @@ def getLastDraw(db):
     db.execute("SELECT numbers, powerball FROM results ORDER BY drawDate DESC LIMIT 1")
     lastDraw = db.fetchone()
     
-    print(f"lastDraw = {lastDraw}")
+    #print(f"lastDraw = {lastDraw}")
     nums =  lastDraw[0].split(',')
     numbers['lastNums'] = nums
     numbers['lastPower'] = lastDraw[1]
