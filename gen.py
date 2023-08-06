@@ -132,7 +132,7 @@ def dbUpdate(URL):
     lastDrawn = curA.fetchone()
     
     if get_date(lastDrawn):
-        print("Udpating database")
+        # print("Udpating database")
         # Get html content, setup BeautifulSoup object
         page = requests.get(URL)
         soup = BeautifulSoup(page.content, "html.parser")
@@ -144,7 +144,7 @@ def dbUpdate(URL):
         # Find element by html id tag, get all tr elements & delete table header
         results = soup.find(id="content")
         draws = results.find_all('tr')
-        print(f"draws is of type {type(draws)}")
+        # print(f"draws is of type {type(draws)}")
         # Remove header
         del(draws[0])
 
@@ -179,10 +179,10 @@ def dbUpdate(URL):
         
         numString = ','.join(numbers)
 
-        print(f"numString:  {numString}\npowerball:  {powerball}\ncleanDate:  {cleanDate}")
+        # print(f"numString:  {numString}\npowerball:  {powerball}\ncleanDate:  {cleanDate}")
 
-        print(f"cleandate has type {type(cleanDate)}")
-        print(f"listedDates[0] has type {type(listedDates[0])}")
+        # print(f"cleandate has type {type(cleanDate)}")
+        # print(f"listedDates[0] has type {type(listedDates[0])}")
 
         if cleanDate not in listedDates:
             #print("need to insert here")
@@ -191,8 +191,8 @@ def dbUpdate(URL):
             curB.execute(insertDraw_query, (numString, powerball, cleanDate,))
             cnx.commit()
             curB.close()        
-    else:
-        print("Database up to date")
+    # else:
+    #     print("Database up to date")
     
     curA.close()
     cnx.close()

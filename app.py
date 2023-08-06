@@ -225,7 +225,7 @@ def index():
             records = get_orders(session["client_id"])
         else:
             records = get_orders(session['query_id'])
-            print(f"query_id is {session['query_id']}")
+            # print(f"query_id is {session['query_id']}")
         
         return render_template("rotadyne/index.html", records=records)
     else:
@@ -253,7 +253,7 @@ def get_details(order_id):
         lines = []
 
         for row in curA:
-            print(row)
+            # print(row)
             line = {
                     "item": row[0],
                     "stock_id": row[1],
@@ -278,7 +278,7 @@ def get_details(order_id):
 def admin():
     if request.method == "POST":
         client_id = request.form.get('organization')
-        print("client_id is ", client_id)
+        # print("client_id is ", client_id)
         session['query_id'] = client_id
         client_orders = get_orders(client_id)
 
@@ -395,10 +395,10 @@ def login():
         session["user_name"] = row[2]
         session["trading_name"] = row[4]
 
-        print(f"session-user-id = {session['user_id']}")
-        print(f"session-client-id = {session['client_id']}")
-        print(f"session-user-name = {session['user_name']}")
-        print(f"session-trading-name = {session['trading_name']}")
+        # print(f"session-user-id = {session['user_id']}")
+        # print(f"session-client-id = {session['client_id']}")
+        # print(f"session-user-name = {session['user_name']}")
+        # print(f"session-trading-name = {session['trading_name']}")
 
         curA.close()
         cnx.close()
@@ -455,12 +455,12 @@ def register():
         curA.execute(query_user)
 
         for uid, name, email in curA:
-            print(uid, ' ' + name + ' ' + email)
+            # print(uid, ' ' + name + ' ' + email)
             if name == new_user['user_name']:
-                print("Username already in use")
+                # print("Username already in use")
                 return apology("Username already in use")
             elif email == new_user['email']:
-                print("Email already in use")
+                # print("Email already in use")
                 return apology("Email already in use")
             if uid > new_user['uid']:
                 new_user['uid'] = uid
@@ -560,7 +560,7 @@ def profile():
 
 def errorhandler(e):
     """Handle error"""
-    print(e)
+    # print(e)b
     if not isinstance(e, HTTPException):
         e = InternalServerError()
     return apology(e.name, e.code)

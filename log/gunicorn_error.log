@@ -1,0 +1,274 @@
+[2023-08-06 13:12:13 +1000] [2486] [INFO] Starting gunicorn 20.1.0
+[2023-08-06 13:12:13 +1000] [2486] [INFO] Listening at: http://127.0.0.1:8000 (2486)
+[2023-08-06 13:12:13 +1000] [2486] [INFO] Using worker: sync
+[2023-08-06 13:12:13 +1000] [2487] [INFO] Booting worker with pid: 2487
+[2023-08-06 13:12:13 +1000] [2488] [INFO] Booting worker with pid: 2488
+[2023-08-06 13:12:13 +1000] [2489] [INFO] Booting worker with pid: 2489
+[2023-08-06 13:12:57,242] ERROR in app: Exception on /rotadyne/admin [POST]
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/nigel/dev/web/helpers.py", line 42, in decorated_function
+    return f(*args, **kwargs)
+  File "/home/nigel/dev/web/app.py", line 281, in admin
+    print("client_id is ", client_id)
+OSError: [Errno 5] Input/output error
+[2023-08-06 13:12:57 +1000] [2489] [ERROR] Socket error processing request.
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/nigel/dev/web/helpers.py", line 42, in decorated_function
+    return f(*args, **kwargs)
+  File "/home/nigel/dev/web/app.py", line 281, in admin
+    print("client_id is ", client_id)
+OSError: [Errno 5] Input/output error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/gunicorn/workers/sync.py", line 136, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/usr/lib/python3/dist-packages/gunicorn/workers/sync.py", line 194, in handle_request
+    util.reraise(*sys.exc_info())
+  File "/usr/lib/python3/dist-packages/gunicorn/util.py", line 651, in reraise
+    raise value
+  File "/usr/lib/python3/dist-packages/gunicorn/workers/sync.py", line 179, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/nigel/.local/lib/python3.10/site-packages/werkzeug/middleware/proxy_fix.py", line 187, in __call__
+    return self.app(environ, start_response)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1724, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/nigel/dev/web/app.py", line 563, in errorhandler
+    print(e)
+OSError: [Errno 5] Input/output error
+[2023-08-06 13:12:57,385] ERROR in app: Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1785, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1767, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/ctx.py", line 351, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/home/nigel/.local/lib/python3.10/site-packages/werkzeug/routing/map.py", line 624, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1666, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1606, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/nigel/dev/web/app.py", line 563, in errorhandler
+    print(e)
+OSError: [Errno 5] Input/output error
+[2023-08-06 13:12:57 +1000] [2487] [ERROR] Socket error processing request.
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1785, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1767, in raise_routing_exception
+    raise request.routing_exception  # type: ignore
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/ctx.py", line 351, in match_request
+    result = self.url_adapter.match(return_rule=True)  # type: ignore
+  File "/home/nigel/.local/lib/python3.10/site-packages/werkzeug/routing/map.py", line 624, in match
+    raise NotFound() from None
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1666, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1606, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+  File "/home/nigel/dev/web/app.py", line 563, in errorhandler
+    print(e)
+OSError: [Errno 5] Input/output error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/gunicorn/workers/sync.py", line 136, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/usr/lib/python3/dist-packages/gunicorn/workers/sync.py", line 194, in handle_request
+    util.reraise(*sys.exc_info())
+  File "/usr/lib/python3/dist-packages/gunicorn/util.py", line 651, in reraise
+    raise value
+  File "/usr/lib/python3/dist-packages/gunicorn/workers/sync.py", line 179, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2548, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/nigel/.local/lib/python3.10/site-packages/werkzeug/middleware/proxy_fix.py", line 187, in __call__
+    return self.app(environ, start_response)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1724, in handle_exception
+    server_error = self.ensure_sync(handler)(server_error)
+  File "/home/nigel/dev/web/app.py", line 563, in errorhandler
+    print(e)
+OSError: [Errno 5] Input/output error
+[2023-08-06 13:15:38 +1000] [2487] [INFO] Worker exiting (pid: 2487)
+[2023-08-06 13:15:38 +1000] [2488] [INFO] Worker exiting (pid: 2488)
+[2023-08-06 13:15:38 +1000] [2486] [INFO] Handling signal: term
+[2023-08-06 13:15:38 +1000] [2489] [INFO] Worker exiting (pid: 2489)
+[2023-08-06 13:15:38 +1000] [2486] [WARNING] Worker with pid 2488 was terminated due to signal 15
+[2023-08-06 13:15:38 +1000] [2486] [INFO] Shutting down: Master
+[2023-08-06 13:16:07 +1000] [2561] [INFO] Starting gunicorn 20.1.0
+[2023-08-06 13:16:07 +1000] [2561] [INFO] Listening at: http://127.0.0.1:8000 (2561)
+[2023-08-06 13:16:07 +1000] [2561] [INFO] Using worker: sync
+[2023-08-06 13:16:07 +1000] [2562] [INFO] Booting worker with pid: 2562
+[2023-08-06 13:16:07 +1000] [2563] [INFO] Booting worker with pid: 2563
+[2023-08-06 13:16:07 +1000] [2564] [INFO] Booting worker with pid: 2564
+[2023-08-06 14:00:12 +1000] [3274] [INFO] Starting gunicorn 20.1.0
+[2023-08-06 14:00:12 +1000] [3274] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2023-08-06 14:00:12 +1000] [3274] [ERROR] Retrying in 1 second.
+[2023-08-06 14:00:13 +1000] [3274] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2023-08-06 14:00:13 +1000] [3274] [ERROR] Retrying in 1 second.
+[2023-08-06 14:00:14 +1000] [3274] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2023-08-06 14:00:14 +1000] [3274] [ERROR] Retrying in 1 second.
+[2023-08-06 14:00:16 +1000] [3274] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2023-08-06 14:00:16 +1000] [3274] [ERROR] Retrying in 1 second.
+[2023-08-06 14:00:17 +1000] [3274] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2023-08-06 14:00:17 +1000] [3274] [ERROR] Retrying in 1 second.
+[2023-08-06 14:00:18 +1000] [3274] [ERROR] Can't connect to ('127.0.0.1', 8000)
+[2023-08-06 14:00:20,963] ERROR in app: Exception on /rotadyne [GET]
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/nigel/dev/web/helpers.py", line 42, in decorated_function
+    return f(*args, **kwargs)
+  File "/home/nigel/dev/web/app.py", line 230, in index
+    return render_template("rotadyne/index.html", records=records)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 147, in render_template
+    return _render(app, template, context)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 130, in _render
+    rv = template.render(context)
+  File "/home/nigel/.local/lib/python3.10/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/home/nigel/.local/lib/python3.10/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/nigel/dev/web/templates/rotadyne/index.html", line 1, in top-level template code
+    {% extends "layout.html" %}
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 62, in get_source
+    return self._get_source_fast(environment, template)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: layout.html
+[2023-08-06 14:01:12,545] ERROR in app: Exception on /rotadyne/admin [GET]
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/nigel/dev/web/helpers.py", line 42, in decorated_function
+    return f(*args, **kwargs)
+  File "/home/nigel/dev/web/app.py", line 318, in admin
+    return render_template("rotadyne/admin.html", orgs=organizations)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 147, in render_template
+    return _render(app, template, context)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 130, in _render
+    rv = template.render(context)
+  File "/home/nigel/.local/lib/python3.10/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/home/nigel/.local/lib/python3.10/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/nigel/dev/web/templates/rotadyne/admin.html", line 1, in top-level template code
+    {% extends "layout.html" %}
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 62, in get_source
+    return self._get_source_fast(environment, template)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: layout.html
+[2023-08-06 14:02:24,260] ERROR in app: Exception on /rotadyne/register [GET]
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/nigel/dev/web/app.py", line 432, in register
+    return render_template("rotadyne/register.html")
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 147, in render_template
+    return _render(app, template, context)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 130, in _render
+    rv = template.render(context)
+  File "/home/nigel/.local/lib/python3.10/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/home/nigel/.local/lib/python3.10/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/nigel/dev/web/templates/rotadyne/register.html", line 1, in top-level template code
+    {% extends "layout.html" %}
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 62, in get_source
+    return self._get_source_fast(environment, template)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: layout.html
+[2023-08-06 14:02:43,647] ERROR in app: Exception on /rotadyne/login [GET]
+Traceback (most recent call last):
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/home/nigel/dev/web/app.py", line 414, in login
+    return render_template("rotadyne/login.html")
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 147, in render_template
+    return _render(app, template, context)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 130, in _render
+    rv = template.render(context)
+  File "/home/nigel/.local/lib/python3.10/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/home/nigel/.local/lib/python3.10/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/nigel/dev/web/templates/rotadyne/login.html", line 1, in top-level template code
+    {% extends "layout.html" %}
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 62, in get_source
+    return self._get_source_fast(environment, template)
+  File "/home/nigel/.local/lib/python3.10/site-packages/flask/templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: layout.html

@@ -82,9 +82,10 @@ def db_connect(caller):
     https://dev.mysql.com/doc/refman/8.0/en/mysql-config-editor.html    <- Not working
 
     """
+    # Return database connection objects
     if caller == 's':
         return mysql.connector.connect(option_files='/etc/mysql/connectors.cnf', database='so_random')
-    # Return mysql connection object
+    
     elif caller == 'r':
         return mysql.connector.connect(option_files='/etc/mysql/connectors.cnf', database='rotadynerds')
     '''
